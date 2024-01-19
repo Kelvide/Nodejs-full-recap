@@ -13,6 +13,12 @@ const friends = [
     }
 ]
 
+app.use((req, res, next) => {
+    console.log(`Method: ${req.method}`)
+    console.log(`URL: ${req.url}`)
+    next();
+})
+
 app.get('/', (req, res) => {
     res.send("Hello")
 })
