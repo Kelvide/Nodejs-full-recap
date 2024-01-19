@@ -14,9 +14,10 @@ const friends = [
 ]
 
 app.use((req, res, next) => {
-    console.log(`Method: ${req.method}`)
-    console.log(`URL: ${req.url}`)
+    const start = Date.now()
     next();
+    const delta = Date.now() - start
+    console.log(`Method:${req.method} URL:${req.url} ms:${delta}`)
 })
 
 app.get('/', (req, res) => {
