@@ -9,7 +9,7 @@ const creatFriends = (req, res) => {
 }
 
 const getFriends = (req, res) => {
-    res.json(friendsModel)
+    res.status(200).json(friendsModel)
 }
 
 const getEachFriends = (req, res) => {

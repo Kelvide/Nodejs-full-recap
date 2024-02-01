@@ -8,7 +8,7 @@ app.use((req, res, next) => {
     const start = Date.now()
     next();
     const delta = Date.now() - start
-    console.log(`Method:${req.method} URL:${req.url} ms:${delta}`)
+    console.log(`Method:${req.method} URL:${req.baseUrl}${req.url} ms:${delta}`)
 })
 
 app.use(express.json())
