@@ -1,0 +1,7 @@
+const router = require('express').Router()
+
+const planetsContorller = require('../controllers/planets.controller');
+
+router.get('/planets', planetsContorller.getAllPlanets)
+
+module.exports = router;
