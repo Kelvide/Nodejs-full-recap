@@ -9,6 +9,7 @@ const isHabitablePlanet = (planet) => {
 }
 
 /*
+    create promise in node js
     const promise = new Promise((resolve,reject)=> {
         resolve(42)
     })
@@ -42,5 +43,9 @@ const loadPlanets = () => {
     })
 }
 
+const getAllPlanets = () => {
+    return habitablePlanets;
+}
 
-module.exports = { loadPlanets, planets: habitablePlanets }
+
+module.exports = { loadPlanets, getAllPlanets }
