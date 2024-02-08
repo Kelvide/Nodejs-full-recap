@@ -8,12 +8,16 @@ const launch = {
     rocket: 'Explorer IS1',
     launchDate: new Date('December 27, 2030'),
     target: 'Kepler-442 b',
-    customer: ['ZTM', 'NASA'],
+    customers: ['ZTM', 'NASA'],
     upcoming: true,
     success: true,
 }
 
 launches.set(launch.flightNumber, launch)
+
+const findLaunchWithId = (launchId) => {
+    return launches.has(launchId)
+}
 
 const getAllLaunches = () => {
     return Array.from(launches.values())
@@ -27,9 +31,16 @@ const addNewLaunches = (launch) => {
             flightNumber: latestFlightNumber,
             success: true,
             upcoming: true,
-            customer: ['Zero to Mastery', 'NASA']
+            customers: ['Zero to Mastery', 'NASA']
         })
     );
 }
 
-module.exports = { getAllLaunches, addNewLaunches }
+const abortLaunchById = (launchId) => {
+    const aborted = launches.get(launchId);
+    aborted.upcoming = false;
+    aborted.success = false;
+    return aborted;
+}
+
+module.exports = { getAllLaunches, addNewLaunches, findLaunchWithId, abortLaunchById }
