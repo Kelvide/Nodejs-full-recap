@@ -10,8 +10,10 @@
     "install:server": "npm install --prefix server",
     "install:client": "npm install --prefix client",
     "install": "npm-run-all --parallel install:server install:client",
-    "build:backend": "npm run build --prefix client",
+    "build:frontend": "npm run build --prefix client",
     "deploy": "npm-run-all --parallel build:backend start:backend",
+    "cluster:backend": "npm run cluster --prefix server",
+    "deploy-cluster": "npm-run-all --parallel build:frontend cluster:backend",
     "test:server": "npm run test --prefix server",
     "test:client": "npm run test --prefix client",
     "test": "npm-run-all --parallel test:backend test:client"
