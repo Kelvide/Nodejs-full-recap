@@ -4,7 +4,7 @@ const httpGetAllLaunches = (async (req, res) => {
     return res.status(200).json(await launchModels.getAllLaunches())
 })
 
-const httpAddNewLaunch = ((req, res) => {
+const httpAddNewLaunch = (async (req, res) => {
     const launch = req.body;
 
     if (!launch.mission || !launch.rocket || !launch.launchDate || !launch.target) {
@@ -20,7 +20,7 @@ const httpAddNewLaunch = ((req, res) => {
         })
     }
 
-    launchModels.addNewLaunches(launch)
+    await launchModels.scheduleNewLaunch(launch)
     return res.status(201).json(launch)
 })
 
