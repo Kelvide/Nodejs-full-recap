@@ -1,24 +1,31 @@
+
 const { parse } = require('csv-parse');
 const path = require('path')
 const fs = require('fs')
 
-const habitablePlanets = []
+const planets = require('./planets.mongo')
 
 const isHabitablePlanet = (planet) => {
     return planet['koi_disposition'] === "CONFIRMED" && planet['koi_insol'] > 0.38 && planet['koi_insol'] < 1.11 && planet['koi_prad'] < 1.6;
 }
 
-/*
-    create promise in node js
-    const promise = new Promise((resolve,reject)=> {
-        resolve(42)
-    })
-    promise.then((result)=>{
+const savePlanet = async (planet) => {
+    try {
+        await planets.updateOne({
+            keplerName: planet.kepler_name,
+        }, {
+            keplerName: planet.kepler_name,
+        }, {
+            upsert: true
+        })
+    } catch (err) {
+        console.log(`Could not save planet ${err}`);
+    }
+}
 
-    })
-    const result = await promise;
-    console.log(reuslt)
-*/
+const getAllPlanets = async () => {
+    return await planets.find({}, { '_id': 0, '__v': 0 });
+}
 
 const loadPlanets = () => {
     return new Promise((resolve, reject) => {
@@ -27,25 +34,21 @@ const loadPlanets = () => {
                 comment: "#",
                 columns: true,
             }))
-            .on('data', (data) => {
+            .on('data', async (data) => {
                 if (isHabitablePlanet(data)) {
-                    habitablePlanets.push(data)
+                    savePlanet(data)
                 }
             })
             .on('error', (err) => {
                 console.log(err.message)
                 reject(err)
             })
-            .on('end', () => {
-                console.log(`${habitablePlanets.length} habitable planets found`)
+            .on('end', async () => {
+                const countPlanetFound = await getAllPlanets()
+                console.log(`${countPlanetFound.length} habitable planets found`)
                 resolve()
             });
     })
 }
-
-const getAllPlanets = () => {
-    return habitablePlanets;
-}
-
 
 module.exports = { loadPlanets, getAllPlanets }
