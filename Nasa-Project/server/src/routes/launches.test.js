@@ -20,18 +20,18 @@ describe('Launches API', () => {
         const completeLaunchData = {
             mission: "USS Enterprise",
             rocket: "NCC 1701-p",
-            target: "kepler-186 f",
+            target: "Kepler-62 f",
             launchDate: "January 4, 2028"
         }
         const launctDataWithoutDate = {
             mission: "USS Enterprise",
             rocket: "NCC 1701-p",
-            target: "kepler-186 f",
+            target: "Kepler-62 f",
         }
         const launctDataWithInvalidDate = {
             mission: "USS Enterprise",
             rocket: "NCC 1701-p",
-            target: "kepler-186 f",
+            target: "Kepler-62 f",
             launchDate: "root"
         }
         test('It should respond with 201 created', async () => {
