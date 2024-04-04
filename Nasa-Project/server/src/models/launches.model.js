@@ -33,8 +33,8 @@ const saveLaunch = async (launch) => {
 
 saveLaunch(launch)
 
-const findLaunchWithId = (launchId) => {
-    return launches.has(launchId)
+const findLaunchWithId = async (launchId) => {
+    return await launchesDatabase.findOne({ flightNumber: launchId })
 }
 
 const getLatetstFlightNumber = async () => {
@@ -68,11 +68,13 @@ const scheduleNewLaunch = async (launch) => {
 }
 
 
-const abortLaunchById = (launchId) => {
-    const aborted = launches.get(launchId);
-    aborted.upcoming = false;
-    aborted.success = false;
-    return aborted;
+const abortLaunchById = async (launchId) => {
+    return await launchesDatabase.updateOne({ flightNumber: launchId }, { upcoming: false, success: false })
+
+    // const aborted = launches.get(launchId);
+    // aborted.upcoming = false;
+    // aborted.success = false;
+    // return aborted;
 }
 
 module.exports = { getAllLaunches, scheduleNewLaunch, findLaunchWithId, abortLaunchById }
